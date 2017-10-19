@@ -1,0 +1,28 @@
+#!/usr/bin/python
+"""To split up maptask transcripts into guide and follower """
+import re
+
+myFileName = input("Please input the filename ")
+myF = myFileName + "_f"
+myG = myFileName + "_g"
+
+send_to_f = open(myF, "w")
+send_to_g = open(myG, "w")
+
+send_toInit = send_to_f + send_to_g
+
+with open(myFileName,"r") as f:
+	for line in f:
+		i = line[0]
+		if i == '<' :
+			if line.find('who=') == False:
+				print f
+			else: 
+				j = line.find('who=') + 4
+				if line[j] == 'f' : 
+					send_to = send_to_f
+				elif line[j] == 'g' :
+					send_to = send_to_g
+		else:
+			send_to.write(line + "\n")
+
